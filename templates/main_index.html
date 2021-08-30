@@ -1,0 +1,68 @@
+<header class="header">
+    <div class="common__container">
+        <div class="header__container">
+            <div class="header__inner">
+                <button class="button__menu button__menu--notification js-open-menu">
+                </button>
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><span>Общие показатели</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header__group">
+                <!--
+                <div class="header__search">
+                    <div class="search__input">
+                        <input type="text" class="form__input form__input--search" placeholder="Быстрый поиск">
+                        <button class="button__search js-search-button">
+                            <svg class="search__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <use class="loupe" xlink:href="/diz/img/sprites/sprite.svg#loupe"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                -->
+                <div class="button__group js-switch-container">
+                    <div class="button__item"><button class="button button--switch js-button-switch {ACTIVE_ALL}" data-action="all" onclick="document.location.href='/';">Все</button></div>
+                    <div class="button__item"><button class="button button--switch js-button-switch {ACTIVE_ACTIVE}" data-action="active" onclick="document.location.href='/?type=active';">Активные</button></div>
+                    <div class="button__item"><button class="button button--switch js-button-switch {ACTIVE_NONACTIVE}" data-action="nonactive" onclick="document.location.href='/?type=nonactive';">Неактивные</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="common__section">
+    <section class="product">
+    <div class="common__container">
+        <div class="js-product-box">
+            <div class="product__block" id="data-container">
+                <div class="product__box">
+                    <!-- BEGIN BLOCK: complex -->
+                    <!-- BEGIN BLOCK: complex_active -->
+                   
+                    <!-- END BLOCK: complex_active -->
+
+                    <!-- BEGIN BLOCK: complex_disabled -->
+                   
+                    <!-- END BLOCK: complex_disabled -->
+                    <!-- END BLOCK: complex -->
+                </div>
+            </div>
+        </div>
+        <div class="pagination__wrap">
+            <div class="pagination">
+                <div class="pagination__select">
+                    <select class="select2 js-select js-pagination">
+                        <option value="10" selected="selected" data-select2-id="6">Выводить по 10</option>
+                        <option value="20">Выводить по 20</option>
+                        <option value="100">Выводить по 100</option>
+                    </select>
+                </div>
+                <div id="pagination-bar">
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>

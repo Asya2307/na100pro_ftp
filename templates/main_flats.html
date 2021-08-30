@@ -1,0 +1,183 @@
+<header class="header header--call">
+    <div class="common__container">
+        <div class="header__container">
+            <div class="header__inner">
+                <button class="button__menu button__menu--notification js-open-menu">
+                </button>
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><span>Квартиры в продаже</span></li>
+                    </ul>
+                </div>
+            </div>
+            <form action="/index.php" method="get">
+            <input type="hidden" name="page" value="flats" />
+            <div class="header__group">
+                <div class="select__wrap select__wrap--all">
+                    <select name="fcomplex" class="select2 js-select">
+                        <option value="all">Все ЖК</option>
+                        <!-- BEGIN BLOCK: filter_complex -->
+                        <option value="{FCOMPLEX_ID}" {SELECTED}>{FCOMPLEX_NAME}</option>
+                        <!-- END BLOCK: filter_complex -->
+                    </select>
+                </div>
+                <input type="hidden" name="limit" value="{LIMIT}" />
+
+                <div class="button__group">
+                    &nbsp;
+                    <div class="button__submit-wrap">
+                        <button class="button__submit" type="submit" onclick="this.form.submit();">
+                            Применить
+                        </button>
+                    </div>
+                </div>
+                <div class="button__group">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button class="button__reset js-reset-filter" onclick="document.location.href='/index.php?page=flats'; return false;">
+                        <span class="button__reset-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <use class="reload-prm" xlink:href="/diz/img/sprites/sprite.svg#reload-prm"></use>
+                            </svg>
+                        </span>
+                        <span>Сбросить фильтр</span>
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</header>
+<div class="apartment">
+    <div class="common__container">
+        <div class="apartment__table">
+            <div class="apartment__table-header">
+                <div class="apartment__table-header-item apartment__table-header-item--small">
+                    <span>
+                        №
+                    </span>
+                </div>
+                <div class="apartment__table-header-item apartment__table-header-item--big">
+                    <span>
+                        Объявление
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        ЖК
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        Корпус
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        Секция
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        Этаж
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        № кварт.
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        Комнат
+                    </span>
+                </div>
+                <div class="apartment__table-header-item apartment__table-header-item--middle">
+                    <span>
+                        Площадь, м2
+                    </span>
+                </div>
+                <div class="apartment__table-header-item">
+                    <span>
+                        Цена, ₽
+                    </span>
+                </div>
+            </div>
+            <div class="apartment__table-body">
+                <!-- BEGIN BLOCK: flat_row -->
+                <div class="apartment__table-row">
+                    <div class="apartment__table-body-item apartment__table-body-item--small">
+                        <span>{NUM}</span>
+                    </div>
+                    <div class="apartment__table-body-item apartment__table-body-item--big">
+                        <div class="apartment__table-inner">
+                            <div class="apartment__plan" style="width:70px; text-align: left;">
+                                <img src="{IMAGE}" alt="Планировка" style="width:60px!important;">
+                            </div>
+                            <a href="/index.php?page=offer&amp;id={FLAT_ID}{ADD}" class="apartment__link">
+                                {FLAT_HEAD}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="apartment__table-body-item" style="width:120px;">
+                        <span class="apartment__table-body-name">ЖК</span>
+                        <span>{COMPLEX_NAME}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">Корпус</span>
+                        <span>{FLAT_BUILDING}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">Секция</span>
+                        <span>{FLAT_SECTION}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">Этаж</span>
+                        <span>{FLAT_LEVEL}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">№ кварт.</span>
+                        <span>{FLAT_NUM}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">Комнат</span>
+                        <span>{FLAT_ROOMS}</span>
+                    </div>
+                    <div class="apartment__table-body-item apartment__table-body-item--middle">
+                        <span class="apartment__table-body-name">Площадь, м2</span>
+                        <span>{FLAT_AREA}</span>
+                    </div>
+                    <div class="apartment__table-body-item">
+                        <span class="apartment__table-body-name">Цена, ₽</span>
+                        <div class="apartment__table-box">
+                            <div>{FLAT_PRICE}</div>
+                            <!-- BEGIN BLOCK: flat_price2 -->
+                            <div>{PRICE2}</div>
+                            <!-- END BLOCK: flat_price2 -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END BLOCK: flat_row -->
+                <div class="pagination__wrap">
+                    <div class="pagination">
+                        <div class="pagination__select">
+                            <select class="select2 js-select" onchange="document.location.href='/index.php?page=flats{ADD}\x26limit='+this.value;">
+                                <option value="10" {SELECTED_10}>Выводить по 10</option>
+                                <option value="20" {SELECTED_20}>Выводить по 20</option>
+                                <option value="100" {SELECTED_100}>Выводить по 100</option>
+                            </select>
+                        </div>
+                        <!-- BEGIN BLOCK: list_pages -->
+                        <div class="pagination__list-wrap">
+                            <ul class="pagination__list">
+                                {PAGES}
+                            </ul>
+                        </div>
+                        <!-- END BLOCK: list_pages -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

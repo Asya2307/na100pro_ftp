@@ -1,0 +1,303 @@
+<header class="header header--call">
+    <div class="common__container">
+        <div class="header__container">
+            <div class="header__inner">
+                <button class="button__menu button__menu--notification js-open-menu">
+                </button>
+                <div class="breadcrumbs">
+                    <ul class="breadcrumbs__list">
+                        <li class="breadcrumbs__item"><span>Отчет по звонкам</span></li>
+                    </ul>
+                </div>
+            </div>
+            <form action="/index.php" method="get">
+            <input type="hidden" name="page" value="call" />
+            <div class="header__group">
+                <div class="select__wrap select__wrap--all">
+                    <select name="fcomplex" class="select2 js-select">
+                        <option value="all">Все ЖК</option>
+                        <!-- BEGIN BLOCK: filter_complex -->
+                        <option value="{FCOMPLEX_ID}" {SELECTED}>{FCOMPLEX_NAME}</option>
+                        <!-- END BLOCK: filter_complex -->
+                    </select>
+                </div>
+                <!-- div class="button__group button__group--date js-switch-container">
+                    <div class="button__item"><button class="button button--switch js-button-switch active" data-action="today">Сегодня</button></div>
+                    <div class="button__item"><button class="button button--switch js-button-switch" data-action="week">За неделю</button></div>
+                    <div class="button__item"><button class="button button--switch js-button-switch" data-action="month">За месяц</button></div>
+                </div -->
+                <div class="form__datepicker-wrap">
+                    <input type="text" name="fdate" class="form__input form__input--datepicker js-input-datepicker" value="{FDATE}">
+                </div>
+                <input type="hidden" name="limit" value="{LIMIT}" />
+
+                <div class="button__group">
+                    &nbsp;
+                    <div class="button__submit-wrap">
+                        <button class="button__submit" type="submit" onclick="this.form.submit();">
+                            Применить
+                        </button>
+                    </div>
+                </div>
+                <div class="button__group">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button class="button__reset js-reset-filter" onclick="document.location.href='/index.php?page=call'; return false;">
+                        <span class="button__reset-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <use class="reload-prm" xlink:href="/diz/img/sprites/sprite.svg#reload-prm"></use>
+                            </svg>
+                        </span>
+                        <span>Сбросить фильтр</span>
+                    </button>
+                    <!-- a href="#" download class="button__download button__download--cut">
+                    </a -->
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</header>
+<div class="common__section">
+    <section class="period">
+    <div class="common__container">
+        <div class="period__wrap">
+            <div class="period__title">
+                <h2 class="common__h2">
+                    Звонки за период <span class="js-priod-text">{DATE_BEGIN} - {DATE_END}</span>
+                </h2>
+            </div>
+            <div class="checkbox__wrap">
+                <form class="checkbox__form">
+                    <div class="checkbox__wrap-item checkbox__wrap-item--blue">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">Все звонки</span>
+                        </label>
+                        <div class="report__col" style="background: #506EFC; border-radius: 10px;">
+                            <span class="report__col-desc">{TOTAL_ALL}</span>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">Целевые</span>
+                        </label>
+                        <div class="report__col" style="background: #C3FFC3; border-radius: 10px;">
+                            <span class="report__col-desc" style="color:#000000;">{TOTAL_1}</span>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">Прозвон</span>
+                        </label>
+                        <div class="report__col" style="background: #FFDDFF; border-radius: 10px;">
+                            <span class="report__col-desc" style="color:#000000;">{TOTAL_2}</span>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">Не принятые</span>
+                        </label>
+                        <div class="report__col" style="background: #FFFF66; border-radius: 10px;">
+                            <span class="report__col-desc" style="color:#000000;">{TOTAL_3}</span>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">На рассмотрении</span>
+                        </label>
+                        <div class="report__col" style="background: #C0C0C0; border-radius: 10px;">
+                            <span class="report__col-desc">{TOTAL_4}</span>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item checkbox__wrap-item--red">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">Оспоренные</span>
+                        </label>
+                        <div class="report__col">
+                            <span class="report__col-desc">{TOTAL_5}</span>
+                            <div class="report__item">
+                                На сумму
+                                <span>{SAVED}&#8381;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox__wrap-item">
+                        <label class="checkbox__custom-container">
+                            <span class="checkbox__custom-text">В обработке</span>
+                        </label>
+                        <div class="report__col" style="background: #000000; border-radius: 10px;">
+                            <span class="report__col-desc">{TOTAL_0}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="chart__section">
+                <canvas class="js-chart" data-type="report"></canvas>
+            </div>
+        </div>
+
+<script type="text/javascript">
+    <!-- BEGIN BLOCK: dataset -->
+    var dataReport = {
+      labels: [{LABELS}],
+      datasets: [
+      {
+        data: [{COUNT_ALL}],
+        borderColor: '#95DE64',
+        backgroundColor: '#506EFC'
+      },
+      {
+        data: [{COUNT_1}],
+        borderColor: '#95DE64',
+        backgroundColor: '#C3FFC3'
+      },
+      {
+        data: [{COUNT_2}],
+        borderColor: '#85A5FF',
+        backgroundColor: '#FFDDFF'
+      },
+      {
+        data: [{COUNT_3}],
+        borderColor: '#95DE64',
+        backgroundColor: '#FFFF66'
+      },
+      {
+        data: [{COUNT_4}],
+        borderColor: '#95DE64',
+        backgroundColor: '#C0C0C0'
+      },
+      {
+        data: [{COUNT_5}],
+        borderColor: '#95DE64',
+        backgroundColor: '#C51A2A'
+      },
+      {
+        data: [{COUNT_0}],
+        borderColor: '#95DE64',
+        backgroundColor: '#000000'
+      }
+      ]
+    };
+    <!-- END BLOCK: dataset -->
+</script>
+
+        <div class="period__table-container">
+            <div class="period__table">
+                <div class="period__table-header">
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            Дата
+                        </div>
+                    </div>
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            Номер клиента
+                        </div>
+                    </div>
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            ЖК
+                        </div>
+                    </div>
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            Площадка
+                        </div>
+                        <!-- div class="common__sort">
+                            <button class="common__sort-button common__sort-button--up js-sort-button"></button>
+                            <button class="common__sort-button common__sort-button--down js-sort-button"></button>
+                        </div -->
+                    </div>
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            Статус
+                        </div>
+                        <!-- div class="common__sort">
+                            <button class="common__sort-button common__sort-button--up js-sort-button"></button>
+                            <button class="common__sort-button common__sort-button--down js-sort-button"></button>
+                        </div -->
+                    </div>
+                    <div class="period__table-header-item">
+                        <div class="period__table-header-inner">
+                            Продолжительность
+                        </div>
+                    </div>
+                </div>
+                <div class="period__table-body">
+                    <!-- BEGIN BLOCK: call_row -->
+                    <div class="period__table-row">
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                {CALL_DATE}
+                            </div>
+                        </div>
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                +{CALL_NUMBER}
+                            </div>
+                        </div>
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                {CALL_COMPLEX}
+                            </div>
+                        </div>
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                {CALL_SERVICE}
+                            </div>
+                        </div>
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                {CALL_STATUS}
+                            </div>
+                        </div>
+                        <div class="period__table-body-item">
+                            <div class="period__table-body-inner">
+                                <div class="period__time">
+                                    {CALL_DURATION}
+                                </div>
+                            </div>
+                            <button class="button__play" onclick="var tmp=document.getElementById('player_{CALL_ID}'); if (tmp.paused) { tmp.play(); } else { tmp.pause(); }">
+                                <audio id="player_{CALL_ID}" src="{MP3_SRC}"></audio>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <use class="play-circle" xlink:href="/diz/img/sprites/sprite.svg#play-circle"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- END BLOCK: call_row -->
+                </div>
+                <div class="pagination__wrap">
+                    <div class="pagination">
+                        <div class="pagination__select">
+                            <select class="select2 js-select" onchange="document.location.href='/index.php?page=call{ADD}\x26limit='+this.value;">
+                                <option value="10" {SELECTED_10}>Выводить по 10</option>
+                                <option value="20" {SELECTED_20}>Выводить по 20</option>
+                                <option value="100" {SELECTED_100}>Выводить по 100</option>
+                            </select>
+                        </div>
+                        <!-- BEGIN BLOCK: list_pages -->
+                        <div class="pagination__list-wrap">
+                            <!-- button class="pagination__button pagination__button--prev js-button-pagination-prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <use class="arrow-left" xlink:href="/diz/img/sprites/sprite.svg#arrow-left"></use>
+                                </svg>
+                            </button -->
+                            <ul class="pagination__list">
+                                {PAGES}
+                            </ul>
+                            <!-- button class="pagination__button pagination__button--next js-button-pagination-next">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <use class="arrow-right" xlink:href="/diz/img/sprites/sprite.svg#arrow-right"></use>
+                                </svg>
+                            </button -->
+                        </div>
+                        <!-- END BLOCK: list_pages -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>

@@ -10,174 +10,400 @@
                     </ul>
                 </div>
             </div>
-            <form action="/index.php" method="get">
+            <form action="/index.php" method="get" style="display: none;">
             <input type="hidden" name="page" value="flats" />
-            <div class="header__group">
-                <div class="select__wrap select__wrap--all">
-                    <select name="fcomplex" class="select2 js-select">
-                        <option value="all">Все ЖК</option>
-                        <!-- BEGIN BLOCK: filter_complex -->
-                        <option value="{FCOMPLEX_ID}" {SELECTED}>{FCOMPLEX_NAME}</option>
+                        <!-- BEGIN BLOCK: filter_complex -->                        
                         <!-- END BLOCK: filter_complex -->
-                    </select>
-                </div>
-                <input type="hidden" name="limit" value="{LIMIT}" />
-
-                <div class="button__group">
-                    &nbsp;
-                    <div class="button__submit-wrap">
-                        <button class="button__submit" type="submit" onclick="this.form.submit();">
-                            Применить
-                        </button>
-                    </div>
-                </div>
-                <div class="button__group">
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <button class="button__reset js-reset-filter" onclick="document.location.href='/index.php?page=flats'; return false;">
-                        <span class="button__reset-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <use class="reload-prm" xlink:href="/diz/img/sprites/sprite.svg#reload-prm"></use>
-                            </svg>
-                        </span>
-                        <span>Сбросить фильтр</span>
-                    </button>
-                </div>
-            </div>
+            <input type="hidden" name="limit" value="{LIMIT}" />
             </form>
         </div>
     </div>
 </header>
-<div class="apartment">
-    <div class="common__container">
-        <div class="apartment__table">
-            <div class="apartment__table-header">
-                <div class="apartment__table-header-item apartment__table-header-item--small">
-                    <span>
-                        №
-                    </span>
+<div class="common__section">
+    <div class="filter">
+        <div class="common__container">
+            <div class="filter__box">
+                <div class="filter__button-wrap"> 
+                    <button class="button__filter button__filter--filter js-show-filter" data-action="filter">
+                        Фильтры
+                    </button>
+                    <button class="button__filter button__filter--sort js-show-filter" data-action="sort">
+                        Сортировка
+                    </button>
                 </div>
-                <div class="apartment__table-header-item apartment__table-header-item--big">
-                    <span>
-                        Объявление
-                    </span>
+                <div class="filter__container js-filter-container" data-show="filter">
+                    <form class="filter__form js-filter">
+                        <div class="filter__form-inner">
+                            <div class="filter__inner">
+                                <div class="filter__item filter__item-select js-filter-item">
+                                    <select class="js-select-filter" placeholder="Выберите ЖК" data-type="select" name="jk">
+                                    </select>
+                                </div>
+                                <div class="filter__item js-filter-item">
+                                    <button class="filter__button js-filter-button" data-action="modal">
+                                        <span class="filter__button-text">
+                                            Корпус
+                                        </span>
+                                        <div class="filter__button-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                <path d="M9.15167 0.143158H8.31461C8.25769 0.143158 8.20412 0.17106 8.17064 0.216819L4.99988 4.58736L1.82912 0.216819C1.79564 0.17106 1.74207 0.143158 1.68515 0.143158H0.848094C0.775549 0.143158 0.733139 0.225747 0.775549 0.284899L4.71082 5.71012C4.85367 5.90655 5.14608 5.90655 5.28783 5.71012L9.22309 0.284899C9.26662 0.225747 9.22421 0.143158 9.15167 0.143158Z" fill="black" fill-opacity="0.45"></path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div class="filter__modal js-filter-modal" data-filter="corps">
+                                        <div class="filter__modal-inner">
+                                            <div class="checkbox__form">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter__item js-filter-item">
+                                    <button class="filter__button js-filter-button" data-action="modal">
+                                        <span class="filter__button-text">
+                                            Секция
+                                        </span>
+                                        <div class="filter__button-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                <path d="M9.15167 0.143158H8.31461C8.25769 0.143158 8.20412 0.17106 8.17064 0.216819L4.99988 4.58736L1.82912 0.216819C1.79564 0.17106 1.74207 0.143158 1.68515 0.143158H0.848094C0.775549 0.143158 0.733139 0.225747 0.775549 0.284899L4.71082 5.71012C4.85367 5.90655 5.14608 5.90655 5.28783 5.71012L9.22309 0.284899C9.26662 0.225747 9.22421 0.143158 9.15167 0.143158Z" fill="black" fill-opacity="0.45"></path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div class="filter__modal js-filter-modal" data-filter="section">
+                                        <div class="filter__modal-inner">
+                                            <div class="checkbox__form">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter__item js-filter-item">
+                                    <button class="filter__button js-filter-button" data-action="modal">
+                                        <span class="filter__button-text">
+                                            Этаж
+                                        </span>
+                                        <div class="filter__button-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                <path d="M9.15167 0.143158H8.31461C8.25769 0.143158 8.20412 0.17106 8.17064 0.216819L4.99988 4.58736L1.82912 0.216819C1.79564 0.17106 1.74207 0.143158 1.68515 0.143158H0.848094C0.775549 0.143158 0.733139 0.225747 0.775549 0.284899L4.71082 5.71012C4.85367 5.90655 5.14608 5.90655 5.28783 5.71012L9.22309 0.284899C9.26662 0.225747 9.22421 0.143158 9.15167 0.143158Z" fill="black" fill-opacity="0.45"></path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div class="filter__modal js-filter-modal" data-filter="floor">
+                                        <div class="filter__modal-inner">
+                                            <div class="range">
+                                                <div class="range__item">
+                                                    <label class="range__item-name">От</label>
+                                                    <input class="form__input form__input--range js-filter-param" value="1" data-type="input" data-range='from' type="number" min="1" name="from">
+                                                </div>
+                                                <div class="range__item">
+                                                    <label class="range__item-name">До</label>
+                                                    <input class="form__input form__input--range js-filter-param" data-type="input" data-range='to' type="number" min="1" name="to">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter__item js-filter-item">
+                                    <button class="filter__button js-filter-button" data-action="modal">
+                                        <span class="filter__button-text">
+                                            Комнатность
+                                        </span>
+                                        <div class="filter__button-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                                <path d="M9.15167 0.143158H8.31461C8.25769 0.143158 8.20412 0.17106 8.17064 0.216819L4.99988 4.58736L1.82912 0.216819C1.79564 0.17106 1.74207 0.143158 1.68515 0.143158H0.848094C0.775549 0.143158 0.733139 0.225747 0.775549 0.284899L4.71082 5.71012C4.85367 5.90655 5.14608 5.90655 5.28783 5.71012L9.22309 0.284899C9.26662 0.225747 9.22421 0.143158 9.15167 0.143158Z" fill="black" fill-opacity="0.45"></path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div class="filter__modal js-filter-modal">
+                                        <div class="filter__modal-inner">
+                                            <div class="checkbox__form">
+                                                <div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                                                    <label class="checkbox__custom-container">
+                                                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="Студия">
+                                                        <span class="checkbox__custom">
+                                                        </span>
+                                                        <span class="checkbox__custom-text">Студия</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                                                    <label class="checkbox__custom-container">
+                                                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="1">
+                                                        <span class="checkbox__custom">
+                                                        </span>
+                                                        <span class="checkbox__custom-text">1</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                                                    <label class="checkbox__custom-container">
+                                                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="2">
+                                                        <span class="checkbox__custom">
+                                                        </span>
+                                                        <span class="checkbox__custom-text">2</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                                                    <label class="checkbox__custom-container">
+                                                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="3">
+                                                        <span class="checkbox__custom">
+                                                        </span>
+                                                        <span class="checkbox__custom-text">3</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                                                    <label class="checkbox__custom-container">
+                                                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="4">
+                                                        <span class="checkbox__custom">
+                                                        </span>
+                                                        <span class="checkbox__custom-text">4+</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button__submit-wrap">
+                                <button class="button__submit" type="submit">
+                                    Применить
+                                </button>
+                            </div>
+                        </div>
+                        <div class="filter__reset">
+                            <button class="button__close js-close-filter">
+                            </button>
+                            <span class="filter__title">
+                                Фильтры
+                            </span>
+                            <button class="button__reset js-reset-filter">
+                                <span class="button__reset-icon">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.2047 2.27053L12.3234 2.95959C11.1219 1.42365 9.25313 0.437714 7.15469 0.437714C3.53126 0.437714 0.598443 3.3674 0.593756 6.9924C0.589068 10.6205 3.52813 13.5627 7.15469 13.5627C9.98751 13.5627 12.4016 11.7658 13.3203 9.24865C13.3438 9.18303 13.3094 9.10959 13.2438 9.08771L12.3578 8.78303C12.3269 8.77244 12.2931 8.77436 12.2636 8.78837C12.2341 8.80239 12.2113 8.82739 12.2 8.85803C12.1719 8.93615 12.1406 9.01428 12.1078 9.09084C11.8375 9.73146 11.45 10.3065 10.9563 10.8002C10.4665 11.2909 9.88661 11.6824 9.24844 11.9533C8.58751 12.233 7.88282 12.3752 7.15782 12.3752C6.43125 12.3752 5.72813 12.233 5.06719 11.9533C4.4284 11.6836 3.84832 11.2919 3.35938 10.8002C2.86829 10.3105 2.47717 9.72993 2.20782 9.09084C1.92813 8.42834 1.78594 7.72521 1.78594 6.99865C1.78594 6.27209 1.92813 5.56896 2.20782 4.90646C2.47813 4.26584 2.86563 3.69084 3.35938 3.19709C3.85313 2.70334 4.42813 2.31584 5.06719 2.04396C5.72813 1.76428 6.43282 1.62209 7.15782 1.62209C7.88438 1.62209 8.58751 1.76428 9.24844 2.04396C9.88723 2.31372 10.4673 2.7054 10.9563 3.19709C11.1109 3.35178 11.2563 3.51584 11.3906 3.68771L10.45 4.42209C10.4314 4.43649 10.4172 4.45584 10.4091 4.47794C10.401 4.50003 10.3993 4.52396 10.4042 4.54697C10.4091 4.56999 10.4204 4.59115 10.4368 4.60803C10.4532 4.62492 10.474 4.63683 10.4969 4.6424L13.2406 5.31428C13.3188 5.33303 13.3953 5.27365 13.3953 5.19396L13.4078 2.3674C13.4063 2.26428 13.2859 2.20646 13.2047 2.27053Z" fill="#436FFD"/>
+                                        </svg>
+                                        
+                                </span>
+                                <span>Сбросить фильтр</span>
+                            </button>
+                        </div>
+                   </form>
                 </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        ЖК
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        Корпус
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        Секция
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        Этаж
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        № кварт.
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        Комнат
-                    </span>
-                </div>
-                <div class="apartment__table-header-item apartment__table-header-item--middle">
-                    <span>
-                        Площадь, м2
-                    </span>
-                </div>
-                <div class="apartment__table-header-item">
-                    <span>
-                        Цена, ₽
-                    </span>
+                <div class="sortbox__container js-sort-container" data-show="sort">
+                    <form class="sortbox__form js-sort-box">
+                        <button class="button__close js-close-filter">
+                        </button>
+                        <div class="sortbox__title-wrap">
+                            <span class="sortbox__title">
+                                Сортировка
+                            </span>
+                            <button class="button__reset js-reset-sort" disabled="">
+                                <span class="button__reset-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                        <path d="M13.2048 2.27031L12.3236 2.95938C11.122 1.42344 9.25325 0.4375 7.15482 0.4375C3.53138 0.4375 0.598565 3.36719 0.593878 6.99219C0.58919 10.6203 3.52825 13.5625 7.15482 13.5625C9.98763 13.5625 12.4017 11.7656 13.3204 9.24844C13.3439 9.18281 13.3095 9.10938 13.2439 9.0875L12.3579 8.78281C12.3271 8.77223 12.2932 8.77415 12.2638 8.78816C12.2343 8.80218 12.2114 8.82718 12.2001 8.85781C12.172 8.93594 12.1408 9.01406 12.1079 9.09063C11.8376 9.73125 11.4501 10.3063 10.9564 10.8C10.4666 11.2907 9.88673 11.6822 9.24856 11.9531C8.58763 12.2328 7.88294 12.375 7.15794 12.375C6.43138 12.375 5.72825 12.2328 5.06731 11.9531C4.42853 11.6834 3.84844 11.2917 3.3595 10.8C2.86841 10.3103 2.47729 9.72972 2.20794 9.09063C1.92825 8.42813 1.78607 7.725 1.78607 6.99844C1.78607 6.27188 1.92825 5.56875 2.20794 4.90625C2.47825 4.26563 2.86575 3.69063 3.3595 3.19688C3.85325 2.70313 4.42825 2.31563 5.06731 2.04375C5.72825 1.76406 6.43294 1.62188 7.15794 1.62188C7.8845 1.62188 8.58763 1.76406 9.24856 2.04375C9.88735 2.31351 10.4674 2.70519 10.9564 3.19688C11.1111 3.35156 11.2564 3.51563 11.3908 3.6875L10.4501 4.42188C10.4315 4.43627 10.4173 4.45563 10.4092 4.47772C10.4011 4.49981 10.3995 4.52374 10.4043 4.54676C10.4092 4.56977 10.4205 4.59094 10.4369 4.60782C10.4533 4.6247 10.4741 4.63661 10.497 4.64219L13.2408 5.31406C13.3189 5.33281 13.3954 5.27344 13.3954 5.19375L13.4079 2.36719C13.4064 2.26406 13.2861 2.20625 13.2048 2.27031Z"></path>
+                                    </svg>
+                                </span>
+                                <span>Сбросить сортировку</span>
+                            </button>
+                        </div>
+                        <div class="sortbox__box">
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Корпус</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Секция</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Этаж</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">№ кварт.</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Комнат</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Площадь, м2</span>
+                                </label>
+                            </div>
+                            <div class="sortbox__item">
+                                <label class="radio__custom-container">
+                                    <input type="radio" class="radio__custom--hidden js-sort-item" name="sort">
+                                    <span class="radio__custom">
+                                    </span>
+                                    <span class="radio__custom-text">Цена, ₽</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button__group js-switch-container">
+                            <div class="button__item"><button class="button button--switch js-button-switch active">От большего</button></div>
+                            <div class="button__item"><button class="button button--switch js-button-switch">От меньшего</button></div>
+                        </div>
+                        <div class="button__submit-wrap">
+                            <button class="button__submit" type="submit">
+                                Применить
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="apartment__table-body">
-                <!-- BEGIN BLOCK: flat_row -->
-                <div class="apartment__table-row">
-                    <div class="apartment__table-body-item apartment__table-body-item--small">
-                        <span>{NUM}</span>
+        </div>
+    </div>
+    <div class="apartment js-apartment">
+        <div class="common__container">
+            <div class="apartment__table">
+                <div class="apartment__table-header">
+                    <div class="apartment__table-header-item apartment__table-header-item--small">
+                        <span>
+                            №
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item apartment__table-body-item--big">
-                        <div class="apartment__table-inner">
-                            <div class="apartment__plan" style="width:70px; text-align: left;">
-                                <img src="{IMAGE}" alt="Планировка" style="width:60px!important;">
-                            </div>
-                            <a href="/index.php?page=offer&amp;id={FLAT_ID}{ADD}" class="apartment__link">
-                                {FLAT_HEAD}
-                            </a>
-                        </div>
+                    <div class="apartment__table-header-item apartment__table-header-item--big">
+                        <span>
+                            Объявление
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item" style="width:120px;">
-                        <span class="apartment__table-body-name">ЖК</span>
-                        <span>{COMPLEX_NAME}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            ЖК
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">Корпус</span>
-                        <span>{FLAT_BUILDING}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            Корпус
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">Секция</span>
-                        <span>{FLAT_SECTION}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            Секция
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">Этаж</span>
-                        <span>{FLAT_LEVEL}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            Этаж
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">№ кварт.</span>
-                        <span>{FLAT_NUM}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            № кварт.
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">Комнат</span>
-                        <span>{FLAT_ROOMS}</span>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            Комнат
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item apartment__table-body-item--middle">
-                        <span class="apartment__table-body-name">Площадь, м2</span>
-                        <span>{FLAT_AREA}</span>
+                    <div class="apartment__table-header-item apartment__table-header-item--middle">
+                        <span>
+                            Площадь, м2
+                        </span>
                     </div>
-                    <div class="apartment__table-body-item">
-                        <span class="apartment__table-body-name">Цена, ₽</span>
-                        <div class="apartment__table-box">
-                            <div>{FLAT_PRICE}</div>
-                            <!-- BEGIN BLOCK: flat_price2 -->
-                            <div>{PRICE2}</div>
-                            <!-- END BLOCK: flat_price2 -->
-                        </div>
+                    <div class="apartment__table-header-item">
+                        <span>
+                            Цена, ₽
+                        </span>
                     </div>
                 </div>
-                <!-- END BLOCK: flat_row -->
-                <div class="pagination__wrap">
-                    <div class="pagination">
-                        <div class="pagination__select">
-                            <select class="select2 js-select" onchange="document.location.href='/index.php?page=flats{ADD}\x26limit='+this.value;">
-                                <option value="10" {SELECTED_10}>Выводить по 10</option>
-                                <option value="20" {SELECTED_20}>Выводить по 20</option>
-                                <option value="100" {SELECTED_100}>Выводить по 100</option>
-                            </select>
+                <div class="apartment__table-body">
+                    <!-- BEGIN BLOCK: flat_row -->
+                    <div class="apartment__table-row">
+                        <div class="apartment__table-body-item apartment__table-body-item--small">
+                            <span>{NUM}</span>
                         </div>
-                        <!-- BEGIN BLOCK: list_pages -->
-                        <div class="pagination__list-wrap">
-                            <ul class="pagination__list">
-                                {PAGES}
-                            </ul>
+                        <div class="apartment__table-body-item apartment__table-body-item--big">
+                            <div class="apartment__table-inner">
+                                <div class="apartment__plan" style="width:70px; text-align: left;">
+                                    <img src="{IMAGE}" alt="Планировка" style="width:60px!important;">
+                                </div>
+                                <a href="/index.php?page=offer&amp;id={FLAT_ID}{ADD}" class="apartment__link">
+                                    {FLAT_HEAD}
+                                </a>
+                            </div>
                         </div>
-                        <!-- END BLOCK: list_pages -->
+                        <div class="apartment__table-body-item" style="width:120px;">
+                            <span class="apartment__table-body-name">ЖК</span>
+                            <span>{COMPLEX_NAME}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">Корпус</span>
+                            <span>{FLAT_BUILDING}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">Секция</span>
+                            <span>{FLAT_SECTION}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">Этаж</span>
+                            <span>{FLAT_LEVEL}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">№ кварт.</span>
+                            <span>{FLAT_NUM}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">Комнат</span>
+                            <span>{FLAT_ROOMS}</span>
+                        </div>
+                        <div class="apartment__table-body-item apartment__table-body-item--middle">
+                            <span class="apartment__table-body-name">Площадь, м2</span>
+                            <span>{FLAT_AREA}</span>
+                        </div>
+                        <div class="apartment__table-body-item">
+                            <span class="apartment__table-body-name">Цена, ₽</span>
+                            <div class="apartment__table-box">
+                                <div>{FLAT_PRICE}</div>
+                                <!-- BEGIN BLOCK: flat_price2 -->
+                                <div>{PRICE2}</div>
+                                <!-- END BLOCK: flat_price2 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END BLOCK: flat_row -->
+                    <div class="pagination__wrap">
+                        <div class="pagination">
+                            <div class="pagination__select">
+                                <select class="select2 js-select" onchange="document.location.href='/index.php?page=flats{ADD}\x26limit='+this.value;">
+                                    <option value="10" {SELECTED_10}>Выводить по 10</option>
+                                    <option value="20" {SELECTED_20}>Выводить по 20</option>
+                                    <option value="100" {SELECTED_100}>Выводить по 100</option>
+                                </select>
+                            </div>
+                            <!-- BEGIN BLOCK: list_pages -->
+                            <div class="pagination__list-wrap">
+                                <ul class="pagination__list">
+                                    {PAGES}
+                                </ul>
+                            </div>
+                            <!-- END BLOCK: list_pages -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

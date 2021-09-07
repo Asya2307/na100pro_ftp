@@ -1,0 +1,140 @@
+30.08.2021 11:32:01
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS(`complex_id`,`complex_name` SEPARATOR '|'))) AS `f_complex`
+    FROM `@_complex_detail`
+    , `@_complex`, `@_regions`, `@_sales`, `@_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+
+
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS(`complex_id`,`complex_name` SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty_complex`, `realty_regions`, `realty_sales`, `realty_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+Error (1064): You have an error in your SQL syntax; check the manual that corresponds to your
+MariaDB server version for the right syntax to use near 'SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty' at line 2
+----------------------------------------------------------------------
+30.08.2021 11:32:01
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty' at line 2
+#0 /var/www/www-root/data/www/na100pro/main/class.mysql.php (500): mysql->mysql_error_callback()
+#1 /var/www/www-root/data/www/na100pro/client/main/api_ffilter.php (132): mysql->query()
+#2 /var/www/www-root/data/www/na100pro/client/api.php (189): include()
+URL: /api.php?page=ffilter
+----------------------------------------------------------------------
+30.08.2021 11:32:42
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT(`complex_id`,`complex_name` SEPARATOR '|'))) AS `f_complex`
+    FROM `@_complex_detail`
+    , `@_complex`, `@_regions`, `@_sales`, `@_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+
+
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT(`complex_id`,`complex_name` SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty_complex`, `realty_regions`, `realty_sales`, `realty_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+Error (1064): You have an error in your SQL syntax; check the manual that corresponds to your
+MariaDB server version for the right syntax to use near 'SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty' at line 2
+----------------------------------------------------------------------
+30.08.2021 11:32:42
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SEPARATOR '|'))) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty' at line 2
+#0 /var/www/www-root/data/www/na100pro/main/class.mysql.php (500): mysql->mysql_error_callback()
+#1 /var/www/www-root/data/www/na100pro/client/main/api_ffilter.php (132): mysql->query()
+#2 /var/www/www-root/data/www/na100pro/client/api.php (189): include()
+URL: /api.php?page=ffilter
+----------------------------------------------------------------------
+30.08.2021 11:36:35
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS('|', `complex_id`,`complex_name`)) SEPARATOR '||' ORDER BY `complex_name`) AS `f_complex`
+    FROM `@_complex_detail`
+    , `@_complex`, `@_regions`, `@_sales`, `@_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+
+
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS('|', `complex_id`,`complex_name`)) SEPARATOR '||' ORDER BY `complex_name`) AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty_complex`, `realty_regions`, `realty_sales`, `realty_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+Error (1064): You have an error in your SQL syntax; check the manual that corresponds to your
+MariaDB server version for the right syntax to use near 'ORDER BY `complex_name`) AS
+`f_complex`
+    FROM `realty_complex_detail`
+    ,' at line 2
+----------------------------------------------------------------------
+30.08.2021 11:36:35
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `complex_name`) AS `f_complex`
+    FROM `realty_complex_detail`
+    ,' at line 2
+#0 /var/www/www-root/data/www/na100pro/main/class.mysql.php (500): mysql->mysql_error_callback()
+#1 /var/www/www-root/data/www/na100pro/client/main/api_ffilter.php (132): mysql->query()
+#2 /var/www/www-root/data/www/na100pro/client/api.php (189): include()
+URL: /api.php?page=ffilter
+----------------------------------------------------------------------
+30.08.2021 11:36:53
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS('|', `complex_id`,`complex_name`  ORDER BY `complex_name`)) SEPARATOR '||') AS `f_complex`
+    FROM `@_complex_detail`
+    , `@_complex`, `@_regions`, `@_sales`, `@_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+
+
+SELECT
+        GROUP_CONCAT(DISTINCT(CONCAT_WS('|', `complex_id`,`complex_name`  ORDER BY `complex_name`)) SEPARATOR '||') AS `f_complex`
+    FROM `realty_complex_detail`
+    , `realty_complex`, `realty_regions`, `realty_sales`, `realty_clients`
+    WHERE `complex_client` IN (121,292,316)
+ AND NOT (`complex_complex`='0' AND `complex_client`='0') AND `complex_complex`=`complex_id`
+    AND `complex_region`=`region_id`
+    AND `complex_sale`=`sale_id`
+    AND `complex_client`=`client_id`
+Error (1064): You have an error in your SQL syntax; check the manual that corresponds to your
+MariaDB server version for the right syntax to use near 'ORDER BY `complex_name`)) SEPARATOR
+'||') AS `f_complex`
+    FROM `realty_compl' at line 2
+----------------------------------------------------------------------
+30.08.2021 11:36:53
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ORDER BY `complex_name`)) SEPARATOR '||') AS `f_complex`
+    FROM `realty_compl' at line 2
+#0 /var/www/www-root/data/www/na100pro/main/class.mysql.php (500): mysql->mysql_error_callback()
+#1 /var/www/www-root/data/www/na100pro/client/main/api_ffilter.php (132): mysql->query()
+#2 /var/www/www-root/data/www/na100pro/client/api.php (189): include()
+URL: /api.php?page=ffilter
+----------------------------------------------------------------------

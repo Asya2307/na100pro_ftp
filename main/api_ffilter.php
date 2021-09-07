@@ -115,27 +115,46 @@ $complex_id=isset($_GET['complex_id'])?trim($_GET['complex_id']):(isset($_POST['
 
 // Список жилых комплексов клиента
 $q="SELECT
-        GROUP_CONCAT(DISTINCT(CONCAT_WS(`complex_id`,`complex_name` SEPARATOR '|'))) AS `f_complex`
+        GROUP_CONCAT(DISTINCT(CONCAT_WS('|', `complex_id`,`complex_name`)) ORDER BY `complex_name` SEPARATOR '||') AS `f_complex`,
+        GROUP_CONCAT(DISTINCT(`building_ident`) ORDER BY `building_ident` SEPARATOR '||') AS `f_building`,
+        GROUP_CONCAT(DISTINCT(`section_num`) ORDER BY `section_num` SEPARATOR '||') AS `f_section`,
+        MAX(`section_levels`) AS `f_max_section`
     FROM `@_complex_detail`
-    , `@_complex`, `@_regions`, `@_sales`, `@_clients`
+        , `@_complex`, `@_buildings`, `@_sections`
     WHERE `complex_client` IN (".join(',',$clients).")
 ";
 foreach($user_total_ignore as $data) {
     $tmp=explode('_',$data);
     $q.=" AND NOT (`complex_complex`='".$tmp[0]."' AND `complex_client`='".$tmp[1]."')";
 }
+if ($complex_id!='') {
+    $q.=" AND `complex_id`='".$db->escape($complex_id)."'";
+}
 $q.=" AND `complex_complex`=`complex_id`
-    AND `complex_region`=`region_id`
-    AND `complex_sale`=`sale_id`
-    AND `complex_client`=`client_id`
+    AND `building_complex`=`complex_id`
+    AND `section_building`=`building_id`
 ";
 $db->query($q);
-$i=0;
+
+$data=$db->fetch_array();
 
 $result['result']='success';
-$result['client']=array();
-$result['complex']=array();
 
-while($data=$db->fetch_array()) {
-    core::pre($data);
+$result['complex']=array();
+$tmp=explode('||',$data['f_complex']);
+if (count($tmp)) {
+    foreach($tmp as $value) {
+        $tmp2=explode('|',$value);
+        $result['complex'][]=array(
+            'id'=>$tmp2[0],
+            'name'=>$tmp2[1],
+        );
+    }
 }
+$tmp=explode('||',$data['f_building']);
+sort($tmp,SORT_NUMERIC);
+$result['building']=$tmp;
+$tmp=explode('||',$data['f_section']);
+sort($tmp,SORT_NUMERIC);
+$result['sections']=$tmp;
+$result['max_levels']=$data['f_max_section'];

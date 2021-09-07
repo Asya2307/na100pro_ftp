@@ -1,7 +1,0 @@
-23.08.2021 12:55:17
-Incorrect block name 'flat_price2' or block not found in 'main_offer.html'
-#0 /var/www/www-root/data/www/na100pro/main/class.parser.php (378): parser->parser_error_callback()
-#1 /var/www/www-root/data/www/na100pro/client/main/main_offer.php (192): parser->parse_block()
-#2 /var/www/www-root/data/www/na100pro/client/index.php (210): include()
-URL: /index.php?page=offer&id=937401
-----------------------------------------------------------------------

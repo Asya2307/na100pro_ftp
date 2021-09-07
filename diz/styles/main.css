@@ -10165,6 +10165,8 @@ svg path {
 
 .checkbox__wrap-item--filter {
   margin-bottom: 0;
+  width: 50%;
+  margin-right: 0;
 }
 
 .checkbox__custom {
@@ -10452,7 +10454,10 @@ svg path {
 
 .filter__item {
   margin-right: 33px;
-  height: 20px;
+}
+
+.filter__item-select {
+  width: 200px;
 }
 
 .filter__item:last-child {
@@ -10548,7 +10553,7 @@ svg path {
   background: #FFFFFF;
   box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
   border-radius: 2px;
-  min-width: max-content;
+  max-width: 500px;
   padding: 16px;
   z-index: 2;
 }

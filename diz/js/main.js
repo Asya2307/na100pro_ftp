@@ -176,28 +176,6 @@ $(window).on('load', function () {
     });
   }
 
-  var $filterSelect = $('.js-select-filter');
-
-  if ($filterSelect) {
-    var $filterButton = $('.js-filter-button-select');
-    var data = {
-      closeOnSelect: false,
-      containerCssClass: "filter__select",
-      dropdownCssClass: "filter__dropdown",
-      width: 'auto',
-      placeholder: "Поиск по ЖК"
-    };
-    $filterSelect.select2({
-      closeOnSelect: data.closeOnSelect,
-      containerCssClass: data.containerCssClass,
-      dropdownCssClass: data.dropdownCssClass,
-      width: data.width,
-      placeholder: data.placeholder
-    }).one('select2:open', function (e) {
-      $('.filter__dropdown .select2-search__field').attr('placeholder', 'Поиск по ЖК');
-    });;
-  }
-
   var $buttonShow = $('.js-button-show');
 
   if ($buttonShow) {
@@ -338,7 +316,8 @@ $(window).on('load', function () {
     var _$filterButton = $('.js-filter-button');
 
     if ($(window).width() > 1200) {
-      _$filterButton.on('click', function () {
+      _$filterButton.on('click', function (e) {
+        e.preventDefault();
         $('.js-filter-button.active').not($(this)).removeClass('active');
         $('.js-filter-modal.active').not($(this)).removeClass('active');
         var typeAction = $(this).data('action');
@@ -638,127 +617,235 @@ $(window).on('load', function () {
       }
     });
 
-    const API_INDEX = 'http://client.na100.pro/api.php?page=index';
     const $productBox = $('.js-product-box');
-    const $pageSize = $('.js-pagination');
-
-
-    const hangleGetIndex = (url) => $.ajax({
-      url: url,
-      type: 'GET',
-      data: {
-        method: 'list',
-      },
-      success: (response) => {
-        const _clientName = response.client.client_name;
-        const _clientImage = response.client.client_image;
-        const _complex = response.complex;
-        let type = new URLSearchParams(window.location.search).get("type");
-
-        function template(data) {
-          var html = '<div class="product__box">' + data.map(item => {
-            if (!type || type === item.complex_status) {
-              return `
-                    <div class="product__item">
-                      <a href="/index.php?page=flats&amp;complex=${item.complex_id}" class="product__link">
-                          <div class="product__img">
-                              <img src="${item.complex_image}" alt="${item.complex_name}">
-                          </div>
-                          <div class="product__inner">
-                              <div class="product__desc-top">
-                                  <div class="product__desc" >
-                                      <div class="product__desc-header">
-                                          <span>Москва, Волоколамское ш., 81</span>
-                                      </div>
-                                      <span class="product__desc-text">
-                                        ${item.complex_name}
-                                      </span>
-                                  </div>
-                              </div>
-                              <div class="product__row">
-                                  <div class="product__desc">
-                                      <div class="product__desc-header">
-                                          <span>Квартир в продаже</span>
-                                      </div>
-                                      <span class="product__desc-text product__desc-text--bold">
-                                          ${item.flats_count}
-                                      </span>
-                                  </div>
-                              </div>
-                              <div class="product__info">
-                                  <div class="product__info-icon">
-                                      <svg class="search__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                          <use class="reload" xlink:href="/diz/img/sprites/sprite.svg#reload"></use>
-                                      </svg>
-                                  </div>
-                                  <span class="product__info-text">
-                                      Обновлено: ${item.updated}
-                                  </span>
-                              </div>
-                          </div>
-                          <div class="product__status ${item.complex_status}">
-                          </div>
-                      </a>
-                  </div>
-                    `
-            }
-          }).join('') + '</div>'
-          return html;
-        }
-
-        function log(content) {
-          window.console && console.log(content);
-        }
-
-        $(function () {
-          var container = $('#pagination-bar');
-
-
-          container.pagination({
-            dataSource: function (done) {
-              let result = [];
-              if (type === 'active' && type) {
-                _complex.forEach(item => {
-                  if (item.complex_status === 'active') {
-                    result.push(item);
-                  }
-                })
-              } else if (type === 'nonactive' && type) {
-                _complex.forEach(item => {
-                  if (item.complex_status === 'nonactive') {
-                    result.push(item);
-                  }
-                })
-              } else {
-                result = _complex
-              }
-              done(result);
-            },
-            pageSize: $pageSize.val(),
-            autoHidePrevious: true,
-            autoHideNext: true,
-            callback: function (data, pagination) {
-              var html = template(data, type);
-              $('.js-product-box').html(`<div class="product__block"><div class="product__header">
-              <div class="product__icon">
-                  <img src="${_clientImage}" width="48" height="48" alt="${_clientName}">
-              </div>
-              <span class="product__name">
-                  ${_clientName}
-              </span>
-          </div>` + html + `</div>`);
-            }
-          });
-
-        })
-      }
-    });
 
     if ($productBox) {
+      const API_INDEX = 'http://client.na100.pro/api.php?page=index';
+      const $pageSize = $('.js-pagination');
+
+      const hangleGetIndex = (url) => $.ajax({
+        url: url,
+        type: 'GET',
+        data: {
+          method: 'list',
+        },
+        success: (response) => {
+          const _clientName = response.client.client_name;
+          const _clientImage = response.client.client_image;
+          const _complex = response.complex;
+          let type = new URLSearchParams(window.location.search).get("type");
+
+          function template(data) {
+            var html = '<div class="product__box">' + data.map(item => {
+              if (!type || type === item.complex_status) {
+                return `
+                      <div class="product__item">
+                        <a href="/index.php?page=flats&amp;complex=${item.complex_id}" class="product__link">
+                            <div class="product__img">
+                                <img src="${item.complex_image}" alt="${item.complex_name}">
+                            </div>
+                            <div class="product__inner">
+                                <div class="product__desc-top">
+                                    <div class="product__desc" >
+                                        <div class="product__desc-header">
+                                            <span>Москва, Волоколамское ш., 81</span>
+                                        </div>
+                                        <span class="product__desc-text">
+                                          ${item.complex_name}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="product__row">
+                                    <div class="product__desc">
+                                        <div class="product__desc-header">
+                                            <span>Квартир в продаже</span>
+                                        </div>
+                                        <span class="product__desc-text product__desc-text--bold">
+                                            ${item.flats_count}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="product__info">
+                                    <div class="product__info-icon">
+                                        <svg class="search__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <use class="reload" xlink:href="/diz/img/sprites/sprite.svg#reload"></use>
+                                        </svg>
+                                    </div>
+                                    <span class="product__info-text">
+                                        Обновлено: ${item.updated}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="product__status ${item.complex_status}">
+                            </div>
+                        </a>
+                    </div>
+                      `
+              }
+            }).join('') + '</div>'
+            return html;
+          }
+
+          function log(content) {
+            window.console && console.log(content);
+          }
+
+          $(function () {
+            var container = $('#pagination-bar');
+
+
+            container.pagination({
+              dataSource: function (done) {
+                let result = [];
+                if (type === 'active' && type) {
+                  _complex.forEach(item => {
+                    if (item.complex_status === 'active') {
+                      result.push(item);
+                    }
+                  })
+                } else if (type === 'nonactive' && type) {
+                  _complex.forEach(item => {
+                    if (item.complex_status === 'nonactive') {
+                      result.push(item);
+                    }
+                  })
+                } else {
+                  result = _complex
+                }
+                done(result);
+              },
+              pageSize: $pageSize.val(),
+              autoHidePrevious: true,
+              autoHideNext: true,
+              callback: function (data, pagination) {
+                var html = template(data, type);
+                $('.js-product-box').html(`<div class="product__block"><div class="product__header">
+                <div class="product__icon">
+                    <img src="${_clientImage}" width="48" height="48" alt="${_clientName}">
+                </div>
+                <span class="product__name">
+                    ${_clientName}
+                </span>
+            </div>` + html + `</div>`);
+              }
+            });
+
+          })
+        }
+      });
+
       hangleGetIndex(API_INDEX);
       $pageSize.on("change", function (e) {
         hangleGetIndex(API_INDEX);
       });
+    }
+
+    const $apartment = $('.js-apartment');
+
+    if ($apartment) {
+      const API_APARTAMENT = 'http://client.na100.pro/api.php?page=ffilter';
+
+      var $filterSelect = $('.js-select-filter');
+
+      const handleApartment = (url) => $.ajax({
+        url: url,
+        type: 'GET',
+        data: {
+          method: 'list',
+        },
+        success: (response) => {
+          let complex = response.complex;
+          complex.unshift({id: 'all', text: 'Все ЖК', "selected": true});
+          const _complex = $.map(response.complex, function (obj) {
+            obj.text = obj.text || obj.name;
+            return obj;
+          });
+          const _building = response.building;
+          const _section = response.sections;
+          var _maxFloor = response.max_levels;
+
+          $filterSelect.select2({
+            closeOnSelect: false,
+            containerCssClass: "filter__select",
+            dropdownCssClass: "filter__dropdown",
+            width: '100%',
+            data: _complex,
+          }).one('select2:open', function (e) {
+            $('.filter__dropdown .select2-search__field').attr('placeholder', 'Поиск по ЖК');
+          });
+
+          $('.js-filter-modal').each(function() {
+            if ($(this).data('filter') === 'corps') {
+              $(this).find('.checkbox__form').html(`
+                ${
+                  _building.map(item => {
+                    return `<div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                    <label class="checkbox__custom-container">
+                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="${item}">
+                        <span class="checkbox__custom">
+                        </span>
+                        <span class="checkbox__custom-text">${item}</span>
+                    </label>
+                </div>`
+                  }).join('')
+                }
+              `)
+            } else if ($(this).data('filter') === 'section') {
+              $(this).find('.checkbox__form').html(`
+                ${
+                  _section.map(item => {
+                    return `<div class="checkbox__wrap-item checkbox__wrap-item--filter">
+                    <label class="checkbox__custom-container">
+                        <input type="checkbox" class="checkbox__custom--hidden js-filter-param" data-type="checkbox" name="${item}">
+                        <span class="checkbox__custom">
+                        </span>
+                        <span class="checkbox__custom-text">${item}</span>
+                    </label>
+                </div>`
+                  }).join('')
+                }
+              `)
+            } else if ($(this).data('filter') === 'floor') {
+              $(this).find(`[data-range = 'from']`).attr('max', _maxFloor);
+              $(this).find(`[data-range = 'to']`).attr('max', _maxFloor);
+              $(this).find(`[data-range = 'to']`).val(_maxFloor);
+            }
+          })
+        }
+      });
+
+      handleApartment(API_APARTAMENT);
+
+
+      $('.js-filter').on('submit', function(e) {
+        e.preventDefault();
+        const serializeHandler = $(this).serialize();
+        console.log(serializeHandler)
+        $.ajax({
+          url: 'http://client.na100.pro/api.php',
+          type: 'GET',
+          data: serializeHandler,
+          dataType: 'json',
+          success: function(response) {
+          },
+          error: function(response) {
+            alert('Ошибка в запросе')
+          }
+        });
+      });
+
+      const resetFilterButton = $('.js-reset-filter');
+
+      resetFilterButton.on('click', function(e) {
+        e.preventDefault();
+        const form = $(this).closest('.js-filter');
+        form.find('.js-select-filter').val('all').trigger('change');
+        const max = form.find(`[data-range = 'from']`).attr('max');
+        form.find(`[data-range = 'from']`).attr('max', max)
+        form.find(`[data-range = 'to']`).attr('max', max);
+        form.find(`[data-range = 'from']`).val(1);
+        form.find(`[data-range = 'to']`).val(max);
+      })
     }
   }
 });
